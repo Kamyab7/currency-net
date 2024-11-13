@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3A147605-C39
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyDotNet", "src\CurrencyDotNet\CurrencyDotNet.csproj", "{4B58931B-9DB5-424B-B287-1D0717E78761}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E89664E5-2026-4C98-B735-B38CD7F9C85D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyDotNet.UnitTests", "test\CurrencyDotNet.UnitTests\CurrencyDotNet.UnitTests.csproj", "{9E60D3E2-25F7-41B3-B3C7-8ADBA11E8FD2}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -16,6 +20,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4B58931B-9DB5-424B-B287-1D0717E78761} = {3A147605-C39E-43A4-805A-66D014920D5A}
+		{9E60D3E2-25F7-41B3-B3C7-8ADBA11E8FD2} = {E89664E5-2026-4C98-B735-B38CD7F9C85D}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 	EndGlobalSection
