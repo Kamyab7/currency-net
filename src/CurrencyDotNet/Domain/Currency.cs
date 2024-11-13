@@ -25,7 +25,7 @@ namespace CurrencyDotNet
         /// <summary>
         /// Standard ISO-4217 code for the currency.
         /// </summary>
-        public string Code { get; private set; }
+        public string IsoCode { get; private set; }
 
         /// <summary>
         /// The numeric code for the currency.
@@ -71,11 +71,11 @@ namespace CurrencyDotNet
 
 
         private Currency(
-            string code, string numericCode, string englishName, string symbol,
+            string isoCode, string numericCode, string englishName, string symbol,
             int decimalCount, string? persianName, string[]? locations,
             string? wikipediaUrl, string[]? alternativeSymbols)
         {
-            code.ThrowIfArgumentIsNull(nameof(code));
+            isoCode.ThrowIfArgumentIsNull(nameof(isoCode));
             numericCode.ThrowIfArgumentIsNull(nameof(numericCode));
             englishName.ThrowIfArgumentIsNull(nameof(englishName));
             symbol.ThrowIfArgumentIsNull(nameof(symbol));
@@ -85,7 +85,7 @@ namespace CurrencyDotNet
 
             Id = Guid.NewGuid();
             PersianName = persianName;
-            Code = code;
+            IsoCode = isoCode;
             NumericCode = numericCode;
             EnglishName = englishName;
             Symbol = symbol;
