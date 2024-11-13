@@ -8,6 +8,7 @@ namespace CurrencyDotNet
     /// </summary>
     public class Currency
     {
+        private readonly string _name;
 
         /// <summary>
         /// The generic sign for unknown currency.
@@ -35,7 +36,7 @@ namespace CurrencyDotNet
         /// <summary>
         /// English name for the currency.
         /// </summary>
-        public string EnglishName { get; private set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// The Currency symbol.
@@ -48,9 +49,9 @@ namespace CurrencyDotNet
         public int DecimalCount { get; private set; }
 
         /// <summary>
-        /// Persian name for the currency.
+        /// Alternate name for the currency.
         /// </summary>
-        public string? PersianName { get; private set; }
+        public string? AltName { get; private set; }
 
         /// <summary>
         /// Location names (country) which listed for this currency.
@@ -63,7 +64,7 @@ namespace CurrencyDotNet
         public string? WikipediaUrl { get; private set; }
 
         /// <summary>
-        /// Some currencies has more than one symbol!
+        /// Some currencies have more than one symbol!
         /// </summary>
         public string[]? AlternativeSymbols { get; private set; }
 
@@ -71,23 +72,25 @@ namespace CurrencyDotNet
 
 
         private Currency(
-            string isoCode, string numericCode, string englishName, string symbol,
-            int decimalCount, string? persianName, string[]? locations,
+            string isoCode, string numericCode, string name, string symbol,
+            int decimalCount, string? altName, string[]? locations,
             string? wikipediaUrl, string[]? alternativeSymbols)
         {
+            _name = name;
             isoCode.ThrowIfArgumentIsNull(nameof(isoCode));
             numericCode.ThrowIfArgumentIsNull(nameof(numericCode));
-            englishName.ThrowIfArgumentIsNull(nameof(englishName));
+            name.ThrowIfArgumentIsNull(nameof(name));
             symbol.ThrowIfArgumentIsNull(nameof(symbol));
 
             if (decimalCount < 0 || decimalCount > 28)
                 throw new ArgumentOutOfRangeException("decimalCount's value cannot be less than zero or greater than 28.");
 
             Id = Guid.NewGuid();
-            PersianName = persianName;
+            DecimalCount = decimalCount;
+            AltName = altName;
             IsoCode = isoCode;
             NumericCode = numericCode;
-            EnglishName = englishName;
+            Name = name;
             Symbol = symbol;
             Locations = locations;
             WikipediaUrl = wikipediaUrl;
@@ -100,22 +103,22 @@ namespace CurrencyDotNet
         /// </summary>
         /// <param name="code">Currency Code</param>
         /// <param name="numberCode">Currency Numeric code</param>
-        /// <param name="englishName">Currency English name</param>
+        /// <param name="name">Currency name</param>
         /// <param name="symbol">Currency Symbol</param>
         /// <param name="decimalCount">Decimal digits count for the currency</param>
-        /// <param name="persianName">Persian name for the currency</param>
+        /// <param name="altName">Alternate name for the currency</param>
         /// <param name="locations">Locations which support this currency</param>
         /// <param name="wikipediaUrl">The url for Wikipedia page for this currency</param>
         /// <param name="alternativeSymbols"></param>
         /// <returns>A new currency with the specified attributes.</returns>
         public static Currency Create(
-            string code, string numberCode, string englishName, string symbol, int decimalCount,
-            string? persianName = null, string[]? locations = null, string? wikipediaUrl = null,
+            string code, string numberCode, string name, string symbol, int decimalCount,
+            string? altName = null, string[]? locations = null, string? wikipediaUrl = null,
             string[]? alternativeSymbols = null)
         {
             return new Currency(
-                code, numberCode, englishName, symbol, decimalCount,
-                persianName, locations, wikipediaUrl, alternativeSymbols);
+                code, numberCode, name, symbol, decimalCount,
+                altName, locations, wikipediaUrl, alternativeSymbols);
         }
 
 

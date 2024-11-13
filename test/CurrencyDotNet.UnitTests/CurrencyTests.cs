@@ -7,6 +7,32 @@ public class CurrencyTests
 {
 
     [Theory]
+    [InlineData("USD", "840", "United States dollar", "$", 2, null, null, null)]
+    public void Currency_with_valid_params_should_be_created(
+        string isoCode, string numericCode,
+        string name, string symbol, int decimalCount, string? altName,
+        string[]? locations, string? wikipediaUrl, string[]? alternativeSymbols = null)
+    {
+        // Act
+        Currency currency = Currency.Create(
+            isoCode, numericCode, name, symbol, decimalCount,
+            altName, locations, wikipediaUrl, alternativeSymbols
+        );
+
+        // Assert
+        currency.IsoCode.Should().Be(isoCode);
+        currency.NumericCode.Should().Be(numericCode);
+        currency.Name.Should().Be(name);
+        currency.Symbol.Should().Be(symbol);
+        currency.DecimalCount.Should().Be(decimalCount);
+        currency.AltName.Should().Be(altName);
+        currency.Locations.Should().BeEquivalentTo(locations);
+        currency.WikipediaUrl.Should().Be(wikipediaUrl);
+        currency.AlternativeSymbols.Should().BeEquivalentTo(alternativeSymbols);
+        currency.Id.Should().NotBe(Guid.Empty);
+    }
+
+    [Theory]
     [InlineData(-1)]
     [InlineData(29)]
     public void Currency_cannot_be_created_with_invalid_decimal_count(int decimalCount)
