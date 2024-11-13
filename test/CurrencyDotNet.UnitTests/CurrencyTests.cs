@@ -46,4 +46,18 @@ public class CurrencyTests
             .WithMessage("*decimalCount's value cannot be less than zero or greater than 28.*");
     }
     
+    [Theory]
+    [InlineData("USD")][InlineData("EUR")]
+    public void Curreny_with_isocode_should_return_correct_currency(string isoCode)
+    {
+        // Arrange
+        var expectedCurrency = CurrencySource.FindByCode(isoCode);
+
+        // Act
+        var result = Currency.WithCode(isoCode);
+
+        // Assert
+        result.Should().BeEquivalentTo(expectedCurrency);
+    }
+    
 }
