@@ -51,14 +51,14 @@ if (usd != null)
 Currency? eur = Currency.WithNumericCode("978");
 if (eur != null)
 {
-    Console.WriteLine($"EUR English Name: {eur.EnglishName}");
+    Console.WriteLine($"EUR Name: {eur.Name}");
 }
 
 // Get all available currencies
 var allCurrencies = Currency.GetAll();
 foreach (var currency in allCurrencies.Take(5)) // Display first 5 for brevity
 {
-    Console.WriteLine($"{currency.IsoCode} - {currency.EnglishName} ({currency.Symbol})");
+    Console.WriteLine($"{currency.IsoCode} - {currency.Name} ({currency.Symbol})");
 }
 ```
 
