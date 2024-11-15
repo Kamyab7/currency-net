@@ -8,7 +8,6 @@ namespace CurrencyDotNet
     /// </summary>
     public class Currency
     {
-        private readonly string _name;
 
         /// <summary>
         /// The generic sign for unknown currency.
@@ -76,7 +75,6 @@ namespace CurrencyDotNet
             int decimalCount, string? altName, string[]? locations,
             string? wikipediaUrl, string[]? alternativeSymbols)
         {
-            _name = name;
             isoCode.ThrowIfArgumentIsNull(nameof(isoCode));
             numericCode.ThrowIfArgumentIsNull(nameof(numericCode));
             name.ThrowIfArgumentIsNull(nameof(name));
