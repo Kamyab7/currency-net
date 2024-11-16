@@ -1,4 +1,3 @@
-using CurrencyDotNet;
 using FluentAssertions;
 
 namespace CurrencyDotNet.UnitTests;
@@ -47,7 +46,8 @@ public class CurrencyTests
     }
     
     [Theory]
-    [InlineData("USD")][InlineData("EUR")]
+    [InlineData("USD")][InlineData("EUR")][InlineData("GBP")][InlineData("JPY")]
+    [InlineData("IRR")][InlineData("AED")]
     public void Curreny_with_isocode_should_return_correct_currency(string isoCode)
     {
         // Arrange
@@ -59,5 +59,30 @@ public class CurrencyTests
         // Assert
         result.Should().BeEquivalentTo(expectedCurrency);
     }
+    
+    [Fact]
+    public void Currency_props_should_be_immutable()
+    {
+        // Arrange
+        var currency = Currency.Create("AUD", "036", "Australian Dollar", "$", 2, "دلار استرالیا",
+            new[] { "Australia", "Kiribati", "Nauru" },
+            "https://en.wikipedia.org/wiki/Australian_dollar",
+            new string[] { });
+
+        // Act & Assert
+        // Attempting to modify properties should not be possible as setters are private.
+        // This is implicitly tested by the compiler. For runtime checks, reflection can be used.
+
+        // Example: Ensure that properties cannot be set via reflection (optional)
+        Action act = () =>
+        {
+            var type = typeof(Currency);
+            var prop = type.GetProperty("IsoCode");
+            prop?.SetValue(currency, "NEW");
+        };
+
+        act.Should().Throw<InvalidOperationException>();
+    }
+
     
 }
