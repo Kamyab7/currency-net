@@ -22,5 +22,6 @@ public struct Money
         {
             throw new KeyNotFoundException($"Currency with '{currencyCode}' not found");
         }
+        CurrencyCode = currencyCode;
     }
 }
