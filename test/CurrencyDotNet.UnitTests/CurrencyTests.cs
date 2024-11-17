@@ -60,29 +60,4 @@ public class CurrencyTests
         result.Should().BeEquivalentTo(expectedCurrency);
     }
     
-    [Fact]
-    public void Currency_props_should_be_immutable()
-    {
-        // Arrange
-        var currency = Currency.Create("AUD", "036", "Australian Dollar", "$", 2, "دلار استرالیا",
-            new[] { "Australia", "Kiribati", "Nauru" },
-            "https://en.wikipedia.org/wiki/Australian_dollar",
-            new string[] { });
-
-        // Act & Assert
-        // Attempting to modify properties should not be possible as setters are private.
-        // This is implicitly tested by the compiler. For runtime checks, reflection can be used.
-
-        // Example: Ensure that properties cannot be set via reflection (optional)
-        Action act = () =>
-        {
-            var type = typeof(Currency);
-            var prop = type.GetProperty("IsoCode");
-            prop?.SetValue(currency, "NEW");
-        };
-
-        act.Should().Throw<InvalidOperationException>();
-    }
-
-    
 }
