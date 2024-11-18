@@ -28,6 +28,25 @@ internal static class CurrencySource
         return Currencies.Values.AsEnumerable();
     }
 
+    /// <summary>
+    /// Adds a new Currency to the CurrencySource
+    /// </summary>
+    /// <param name="currency"></param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static void Add(Currency currency)
+    {
+        if (currency is null)
+        {
+            throw new ArgumentNullException(nameof(currency));
+        }
+
+        if (_currencies.ContainsKey(currency.IsoCode))
+        {
+        }
+        
+        _currencies.Add(currency.IsoCode, currency);
+    }
+
 
     /// <summary>
     /// Find a <see cref="Currency"/> by it's Standard ISO code.
