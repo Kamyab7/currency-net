@@ -40,11 +40,10 @@ internal static class CurrencySource
             throw new ArgumentNullException(nameof(currency));
         }
 
-        if (_currencies.ContainsKey(currency.IsoCode))
+        if (!_currencies.TryAdd(currency.IsoCode, currency))
         {
+            throw new DuplicateCurrencyWithIsoCodeException(currency.IsoCode);
         }
-        
-        _currencies.Add(currency.IsoCode, currency);
     }
 
 
