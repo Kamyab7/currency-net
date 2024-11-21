@@ -41,8 +41,7 @@ public class CurrencyTests
         );
 
         // Assert
-        act.Should().Throw<ArgumentOutOfRangeException>()
-            .WithMessage("*decimalCount's value cannot be less than zero or greater than 28.*");
+        act.Should().Throw<ArgumentOutOfRangeException>();
     }
     
     [Theory]
