@@ -32,7 +32,12 @@ public struct Money : IEquatable<Money>
     /// <summary>
     /// Name of the Currency (e.g., US Dollar for USD).
     /// </summary>
-    public string CurrencyName { get; private set }
+    public string CurrencyName { get; private set; }
+    
+    /// <summary>
+    /// The number of decimal places to use when formatting.
+    /// </summary>
+    public int DecimalPlaces { get; private set; }
 
     #endregion
 
@@ -110,6 +115,17 @@ public struct Money : IEquatable<Money>
     public override string ToString()
     {
         return $"{CurrencySymbol}{Amount:N2}";
+    }
+    
+    /// <summary>
+    /// Formats the Money instance using a specified number of decimal places.
+    /// </summary>
+    /// <param name="decimalPlaces">The number of decimal places to format.</param>
+    /// <returns>A formatted string representation of the Money instance.</returns>
+    [Pure]
+    public string ToString(int decimalPlaces) // Added
+    {
+        return $"{CurrencySymbol}{Amount.ToString($"N{decimalPlaces}")}";
     }
 
     /// <summary>
@@ -197,6 +213,7 @@ public struct Money : IEquatable<Money>
         CurrencyCode = currencyCode;
         CurrencyName = currency.Name;
         CurrencySymbol = currency.Symbol;
+        DecimalPlaces = currency.DecimalPlaces;
     }
 
     #endregion

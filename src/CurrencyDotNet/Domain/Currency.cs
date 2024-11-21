@@ -45,7 +45,7 @@ public class Currency
     /// <summary>
     /// The number of decimal digits.
     /// </summary>
-    public int DecimalCount { get; }
+    public int DecimalPlaces { get; }
 
     /// <summary>
     /// Alternate name for the currency.
@@ -72,7 +72,7 @@ public class Currency
 
     private Currency(
         string isoCode, string numericCode, string name, string symbol,
-        int decimalCount, string? altName, string[]? locations,
+        int decimalPlaces, string? altName, string[]? locations,
         string? wikipediaUrl, string[]? alternativeSymbols)
     {
         isoCode.ThrowIfArgumentIsNull(nameof(isoCode));
@@ -80,11 +80,11 @@ public class Currency
         name.ThrowIfArgumentIsNull(nameof(name));
         symbol.ThrowIfArgumentIsNull(nameof(symbol));
 
-        if (decimalCount < 0 || decimalCount > 28)
-            throw new ArgumentOutOfRangeException("decimalCount's value cannot be less than zero or greater than 28.");
+        if (decimalPlaces < 0 || decimalPlaces > 28)
+            throw new ArgumentOutOfRangeException("decimalPlaces value cannot be less than zero or greater than 28.");
 
         Id = Guid.NewGuid();
-        DecimalCount = decimalCount;
+        DecimalPlaces = decimalPlaces;
         AltName = altName;
         IsoCode = isoCode;
         NumericCode = numericCode;
@@ -103,19 +103,19 @@ public class Currency
     /// <param name="numberCode">Currency Numeric code</param>
     /// <param name="name">Currency name</param>
     /// <param name="symbol">Currency Symbol</param>
-    /// <param name="decimalCount">Decimal digits count for the currency</param>
+    /// <param name="decimalPlaces">Decimal digits count for the currency</param>
     /// <param name="altName">Alternate name for the currency</param>
     /// <param name="locations">Locations which support this currency</param>
     /// <param name="wikipediaUrl">The url for Wikipedia page for this currency</param>
     /// <param name="alternativeSymbols"></param>
     /// <returns>A new currency with the specified attributes.</returns>
     public static Currency Create(
-        string code, string numberCode, string name, string symbol, int decimalCount,
+        string code, string numberCode, string name, string symbol, int decimalPlaces,
         string? altName = null, string[]? locations = null, string? wikipediaUrl = null,
         string[]? alternativeSymbols = null)
     {
         return new Currency(
-            code, numberCode, name, symbol, decimalCount,
+            code, numberCode, name, symbol, decimalPlaces,
             altName, locations, wikipediaUrl, alternativeSymbols);
     }
 

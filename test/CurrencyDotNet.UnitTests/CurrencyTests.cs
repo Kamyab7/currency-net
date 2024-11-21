@@ -9,12 +9,12 @@ public class CurrencyTests
     [InlineData("USD", "840", "United States dollar", "$", 2, null, null, null)]
     public void Currency_with_valid_params_should_be_created(
         string isoCode, string numericCode,
-        string name, string symbol, int decimalCount, string? altName,
+        string name, string symbol, int decimalPlaces, string? altName,
         string[]? locations, string? wikipediaUrl, string[]? alternativeSymbols = null)
     {
         // Act
         Currency currency = Currency.Create(
-            isoCode, numericCode, name, symbol, decimalCount,
+            isoCode, numericCode, name, symbol, decimalPlaces,
             altName, locations, wikipediaUrl, alternativeSymbols
         );
 
@@ -23,7 +23,7 @@ public class CurrencyTests
         currency.NumericCode.Should().Be(numericCode);
         currency.Name.Should().Be(name);
         currency.Symbol.Should().Be(symbol);
-        currency.DecimalCount.Should().Be(decimalCount);
+        currency.DecimalPlaces.Should().Be(decimalPlaces);
         currency.AltName.Should().Be(altName);
         currency.Locations.Should().BeEquivalentTo(locations);
         currency.WikipediaUrl.Should().Be(wikipediaUrl);
