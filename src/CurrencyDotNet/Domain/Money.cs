@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
 // ReSharper disable CheckNamespace
 
@@ -62,6 +64,36 @@ public struct Money
     public bool HasSameCurrencyAs(Money money)
     {
         return money.CurrencyCode.Equals(CurrencyCode);
+    }
+
+    /// <summary>
+    /// Determines whether all Money instances in the collection have the same currency as the current instance.
+    /// </summary>
+    /// <param name="moneys">The collection of Money instances to compare.</param>
+    /// <returns><c>true</c> if all instances have the same currency; otherwise, <c>false</c>.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="moneys"/> is <c>null</c>.</exception>
+    [Pure]
+    public bool HasSameCurrencyAs(IEnumerable<Money> moneys)
+    {
+        if (moneys is null)
+        {
+            throw new ArgumentNullException(nameof(moneys));
+        }
+        
+        return moneys.All(this.HasSameCurrencyAs);
+    }
+
+    /// <summary>
+    /// Indicates whether the amount has decimal fractions.
+    /// </summary>
+    /// <returns><c>true</c> if the amount has decimals; otherwise, <c>false</c>.</returns>
+    public bool HasDecimals
+    {
+        get
+        {
+            decimal truncatedAmount = decimal.Truncate(Amount);
+            return Amount - truncatedAmount != decimal.Zero;
+        }
     }
     
 
