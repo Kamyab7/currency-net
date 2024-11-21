@@ -35,6 +35,12 @@ public struct Money
     {
         setFields(amount, currencyCode);
     }
+
+
+    public Currency GetCurrency()
+    {
+        return CurrencySource.FindByCode(CurrencyCode)!;
+    }
     
     private void setFields(decimal amount, string currencyCode)
     {
