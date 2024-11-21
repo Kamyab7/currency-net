@@ -114,7 +114,7 @@ public struct Money : IEquatable<Money>
     [Pure]
     public override string ToString()
     {
-        return $"{CurrencySymbol}{Amount:N2}";
+        return $"{CurrencySymbol}{Amount.ToString($"N{this.DecimalPlaces}")}";
     }
     
     /// <summary>
@@ -123,7 +123,7 @@ public struct Money : IEquatable<Money>
     /// <param name="decimalPlaces">The number of decimal places to format.</param>
     /// <returns>A formatted string representation of the Money instance.</returns>
     [Pure]
-    public string ToString(int decimalPlaces) // Added
+    public string ToString(int decimalPlaces)
     {
         return $"{CurrencySymbol}{Amount.ToString($"N{decimalPlaces}")}";
     }
