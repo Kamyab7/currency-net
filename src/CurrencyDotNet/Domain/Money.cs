@@ -202,7 +202,7 @@ public struct Money : IEquatable<Money>
 
     #region Private Methods
 
-    private void setFields(decimal amount, string currencyCode)
+    private void setFields(decimal amount, string currencyCode, int? decimalPlaces = null)
     {
         Amount = amount;
         var currency = CurrencySource.FindByCode(currencyCode);
@@ -213,7 +213,14 @@ public struct Money : IEquatable<Money>
         CurrencyCode = currencyCode;
         CurrencyName = currency.Name;
         CurrencySymbol = currency.Symbol;
-        DecimalPlaces = currency.DecimalPlaces;
+        if (decimalPlaces is null)
+        {
+            DecimalPlaces = currency.DecimalPlaces;
+        }
+        else
+        {
+            DecimalPlaces = decimalPlaces.Value;
+        }
     }
 
     #endregion
