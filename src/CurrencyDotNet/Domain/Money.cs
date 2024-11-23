@@ -102,7 +102,7 @@ public struct Money : IEquatable<Money>
     {
         get
         {
-            decimal truncatedAmount = decimal.Truncate(Amount);
+            var truncatedAmount = decimal.Truncate(Amount);
             return Amount - truncatedAmount != decimal.Zero;
         }
     }
@@ -196,6 +196,85 @@ public struct Money : IEquatable<Money>
             throw new InvalidOperationException("Cannot subtract amounts with different currencies.");
 
         return new Money(a.Amount - b.Amount, a.CurrencyCode);
+    }
+
+    
+    /// <summary>
+    /// Adds the specified Money to the current instance.
+    /// </summary>
+    /// <param name="money">The Money instance to add.</param>
+    /// <returns>A new Money instance representing the sum.</returns>
+    [Pure]
+    public Money Plus(Money money)
+    {
+        return this + money;
+    }
+
+    /// <summary>
+    /// Subtracts the specified Money from the current instance.
+    /// </summary>
+    /// <param name="money">The Money instance to subtract.</param>
+    /// <returns>A new Money instance representing the difference.</returns>
+    [Pure]
+    public Money Minus(Money money)
+    {
+        return this - money;
+    }
+
+    /// <summary>
+    /// Increases the amount by the specified value.
+    /// </summary>
+    /// <param name="amount">The amount to increase.</param>
+    public void Increase(decimal amount)
+    {
+        Amount += amount;
+    }
+
+    /// <summary>
+    /// Decreases the amount by the specified value.
+    /// </summary>
+    /// <param name="amount">The amount to decrease.</param>
+    public void Decrease(decimal amount)
+    {
+        Amount -= amount;
+    }
+
+    
+    /// <summary>
+    /// Calculates the total sum of a collection of Money instances.
+    /// </summary>
+    /// <param name="moneys">The collection of Money instances to sum.</param>
+    /// <returns>The total sum as a new Money instance.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="moneys"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the collection is empty.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when currencies in the collection do not match.</exception>
+    public static Money Total(IEnumerable<Money> moneys)
+    {
+        if (moneys is null)
+        {
+            throw new ArgumentNullException(nameof(moneys));
+        }
+        
+        // ReSharper disable once PossibleMultipleEnumeration
+        if (!moneys.Any())
+        {
+            throw new ArgumentException("At least one money is required.");
+        }
+
+        return moneys.Aggregate((x, y) => x + y);
+    }
+
+    /// <summary>
+    /// Calculates the total sum of a parameter array of Money instances.
+    /// </summary>
+    /// <param name="moneys">The Money instances to sum.</param>
+    /// <returns>The total sum as a new Money instance.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="moneys"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the array is empty.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when currencies in the array do not match.</exception>
+    public static Money Total(params Money[] moneys)
+    {
+        return Total(moneys.AsEnumerable());
     }
 
     #endregion
