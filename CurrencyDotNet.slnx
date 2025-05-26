@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CurrencyDotNet/CurrencyDotNet.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="test/CurrencyDotNet.UnitTests/CurrencyDotNet.UnitTests.csproj" />
+  </Folder>
+</Solution>
