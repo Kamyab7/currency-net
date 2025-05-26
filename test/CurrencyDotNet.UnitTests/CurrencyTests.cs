@@ -45,8 +45,12 @@ public class CurrencyTests
     }
     
     [Theory]
-    [InlineData("USD")][InlineData("EUR")][InlineData("GBP")][InlineData("JPY")]
-    [InlineData("IRR")][InlineData("AED")]
+    [InlineData("USD")]
+    [InlineData("EUR")]
+    [InlineData("GBP")]
+    [InlineData("JPY")]
+    [InlineData("IRR")]
+    [InlineData("AED")]
     public void Curreny_with_isocode_should_return_correct_currency(string isoCode)
     {
         // Arrange
