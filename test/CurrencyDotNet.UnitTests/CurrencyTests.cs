@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 
 namespace CurrencyDotNet.UnitTests;
 
@@ -19,16 +19,16 @@ public class CurrencyTests
         );
 
         // Assert
-        currency.IsoCode.Should().Be(isoCode);
-        currency.NumericCode.Should().Be(numericCode);
-        currency.Name.Should().Be(name);
-        currency.Symbol.Should().Be(symbol);
-        currency.DecimalPlaces.Should().Be(decimalPlaces);
-        currency.AltName.Should().Be(altName);
-        currency.Locations.Should().BeEquivalentTo(locations);
-        currency.WikipediaUrl.Should().Be(wikipediaUrl);
-        currency.AlternativeSymbols.Should().BeEquivalentTo(alternativeSymbols);
-        currency.Id.Should().NotBe(Guid.Empty);
+        currency.IsoCode.ShouldBe(isoCode);
+        currency.NumericCode.ShouldBe(numericCode);
+        currency.Name.ShouldBe(name);
+        currency.Symbol.ShouldBe(symbol);
+        currency.DecimalPlaces.ShouldBe(decimalPlaces);
+        currency.AltName.ShouldBe(altName);
+        currency.Locations.ShouldBe(locations);
+        currency.WikipediaUrl.ShouldBe(wikipediaUrl);
+        currency.AlternativeSymbols.ShouldBe(alternativeSymbols);
+        currency.Id.ShouldNotBe(Guid.Empty);
     }
 
     [Theory]
@@ -41,7 +41,7 @@ public class CurrencyTests
         );
 
         // Assert
-        act.Should().Throw<ArgumentOutOfRangeException>();
+        act.ShouldThrow<ArgumentOutOfRangeException>();
     }
     
     [Theory]
@@ -56,7 +56,7 @@ public class CurrencyTests
         var result = Currency.WithCode(isoCode);
 
         // Assert
-        result.Should().BeEquivalentTo(expectedCurrency);
+        result.ShouldBeEquivalentTo(expectedCurrency);
     }
     
 }
